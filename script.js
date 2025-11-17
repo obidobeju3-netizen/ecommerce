@@ -37,7 +37,22 @@ const productList = [
     { id: 17, name: "Smart Home Hub", price: 5206.50, desc: "Control all your smart devices from one place.", stock: 14, image: 'assets/smarthome.svg' },
     { id: 18, name: "Laser Projector Compact", price: 35041.50, desc: "Portable projector for a cinema experience anywhere.", stock: 7, image: 'assets/projector.svg' },
     { id: 19, name: "Gaming Headset Elite", price: 4414.67, desc: "Comfortable over-ear headset with clear mic.", stock: 33, image: 'assets/gamingheadset.svg' },
-    { id: 20, name: "Tablet Slim 11-inch", price: 23341.50, desc: "Lightweight tablet perfect for media consumption.", stock: 16, image: 'assets/tablet.svg' }
+    { id: 20, name: "Tablet Slim 11-inch", price: 23341.50, desc: "Lightweight tablet perfect for media consumption.", stock: 16, image: 'assets/tablet.svg' },
+    { id: 21, name: "USB-C Cable Premium", price: 1500.00, desc: "Fast charging USB-C cable with durability.", stock: 100, image: 'assets/hub.svg' },
+    { id: 22, name: "Screen Protector Pack", price: 800.00, desc: "Tempered glass screen protectors for smartphones.", stock: 200, image: 'assets/smartphone.svg' },
+    { id: 23, name: "Phone Case Ultra", price: 1200.00, desc: "Protective case with shock absorption.", stock: 150, image: 'assets/smartphone.svg' },
+    { id: 24, name: "Wireless Charger Fast", price: 2500.00, desc: "15W fast wireless charging pad.", stock: 45, image: 'assets/powerbank.svg' },
+    { id: 25, name: "Monitor 27-inch 4K", price: 18500.00, desc: "Ultra-high definition 4K display for professionals.", stock: 12, image: 'assets/laptop.svg' },
+    { id: 26, name: "Laptop Cooling Pad", price: 2200.00, desc: "Aluminum laptop cooler with multiple fans.", stock: 60, image: 'assets/laptop.svg' },
+    { id: 27, name: "Keyboard Wireless", price: 3500.00, desc: "Ergonomic wireless keyboard with long battery life.", stock: 35, image: 'assets/keyboard.svg' },
+    { id: 28, name: "Mouse Pad XL", price: 1800.00, desc: "Large gaming mouse pad with smooth surface.", stock: 80, image: 'assets/mouse.svg' },
+    { id: 29, name: "USB Hub Multi-Port", price: 2800.00, desc: "10-port USB hub for multiple device connections.", stock: 40, image: 'assets/hub.svg' },
+    { id: 30, name: "External Hard Drive 4TB", price: 8500.00, desc: "Portable 4TB storage for backup and transfer.", stock: 25, image: 'assets/ssd.svg' },
+    { id: 31, name: "Network Switch Pro", price: 5500.00, desc: "Managed network switch for enterprise setups.", stock: 18, image: 'assets/router.svg' },
+    { id: 32, name: "Cable Organizer Set", price: 1200.00, desc: "Cable management solution for clean desk setup.", stock: 150, image: 'assets/hub.svg' },
+    { id: 33, name: "Phone Stand Adjustable", price: 1500.00, desc: "Universal phone stand for desk and table.", stock: 120, image: 'assets/smartphone.svg' },
+    { id: 34, name: "Webcam Holder", price: 900.00, desc: "Adjustable webcam stand for video calls.", stock: 90, image: 'assets/webcam.svg' },
+    { id: 35, name: "Desk Lamp LED", price: 3200.00, desc: "Adjustable LED desk lamp with USB charging.", stock: 50, image: 'assets/laptop.svg' }
 ];
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
