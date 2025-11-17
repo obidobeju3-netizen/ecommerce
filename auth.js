@@ -1,8 +1,8 @@
 // auth.js - Authentication handler
-// Use Render deployment URL or localhost for development
+// Use deployed backend or localhost for development
 const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
     ? 'http://localhost:8000' 
-    : 'https://ecommer-2.onrender.com';
+    : `${window.location.protocol}//${window.location.hostname}`;
 
 // Get auth token from localStorage
 function getAuthToken() {
