@@ -108,11 +108,14 @@ async function loadProductsFromBackend() {
         if (!response.ok) throw new Error(`Backend returned ${response.status}`);
         const data = await response.json();
         
-        if (data && data.length > 0) {
-            console.log(`✅ Loaded ${data.length} products from backend`);
+        // Backend returns { success: true, products: [...] }
+        const products = data.products || data;
+        
+        if (products && products.length > 0) {
+            console.log(`✅ Loaded ${products.length} products from backend`);
             // Replace global productList with backend products
             productList.length = 0; // Clear array
-            productList.push(...data);
+            productList.push(...products);
             return true;
         }
     } catch (err) {
