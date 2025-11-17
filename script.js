@@ -4,9 +4,14 @@ const PEXELS_API_KEY = "zUF72zjQkflYRc4zMfEsUEQqyGPTpVRtSM6wjhmqsl4rxsfPcdJHf2hr
 
 const PHP_RATE = 58.50;
 // Use Render deployment URL or localhost for development
-const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-    ? 'http://localhost:8000' 
-    : `${window.location.protocol}//${window.location.hostname}`;
+let BACKEND_URL;
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    BACKEND_URL = 'http://localhost:8000';
+} else {
+    // For Render: use same origin as frontend
+    BACKEND_URL = `${window.location.protocol}//${window.location.host}`;
+}
+console.log('🌐 BACKEND_URL:', BACKEND_URL);
 
 const productListEl = document.getElementById('product-list');
 const cartListEl = document.getElementById('cart-list');
@@ -17,7 +22,7 @@ const confirmCheckoutBtn = document.getElementById('confirm-checkout');
 const cartTotalItemsEl = document.getElementById('cart-total-items');
 const authButtonContainer = document.getElementById('auth-button-container');
 
-const productList = [
+let productList = [
     { id: 1, name: "Laptop Pro X", price: 75988.50, desc: "High-performance laptop for professionals.", stock: 10, image: 'assets/laptop.svg' },
     { id: 2, name: "Wireless Headphones Z", price: 11699.42, desc: "Noise-cancelling headphones with deep bass.", stock: 25, image: 'assets/headphones.svg' },
     { id: 3, name: "Smartphone 15 Ultra", price: 58441.50, desc: "Latest flagship smartphone with advanced camera.", stock: 15, image: 'assets/smartphone.svg' },
@@ -103,23 +108,27 @@ function saveCart() {
 // Load products from backend API
 async function loadProductsFromBackend() {
     try {
-        console.log('🔄 Fetching products from backend...');
+        console.log('🔄 Fetching products from backend at:', BACKEND_URL + '/api/products');
         const response = await fetch(`${BACKEND_URL}/api/products`);
         if (!response.ok) throw new Error(`Backend returned ${response.status}`);
         const data = await response.json();
         
+        console.log('📊 Raw API response:', data);
+        
         // Backend returns { success: true, products: [...] }
         const products = data.products || data;
+        console.log('📦 Parsed products array:', products);
         
-        if (products && products.length > 0) {
+        if (products && Array.isArray(products) && products.length > 0) {
             console.log(`✅ Loaded ${products.length} products from backend`);
-            // Replace global productList with backend products
-            productList.length = 0; // Clear array
-            productList.push(...products);
+            // Replace global productList contents with backend products
+            productList.splice(0, productList.length, ...products);
             return true;
+        } else {
+            console.warn('⚠️ Backend returned empty or invalid products array:', products);
         }
     } catch (err) {
-        console.warn('⚠️ Could not load from backend, using fallback products:', err);
+        console.warn('⚠️ Could not load from backend, using fallback products:', err.message);
     }
     return false;
 }
