@@ -6,7 +6,7 @@ const PHP_RATE = 58.50;
 // Use Render deployment URL or localhost for development
 const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
     ? 'http://localhost:8000' 
-    : 'https://ecommer-2.onrender.com';
+    : `${window.location.protocol}//${window.location.hostname}`;
 
 const productListEl = document.getElementById('product-list');
 const cartListEl = document.getElementById('cart-list');
@@ -98,6 +98,27 @@ async function fetchProductImage(productOrQuery) {
 
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// Load products from backend API
+async function loadProductsFromBackend() {
+    try {
+        console.log('🔄 Fetching products from backend...');
+        const response = await fetch(`${BACKEND_URL}/api/products`);
+        if (!response.ok) throw new Error(`Backend returned ${response.status}`);
+        const data = await response.json();
+        
+        if (data && data.length > 0) {
+            console.log(`✅ Loaded ${data.length} products from backend`);
+            // Replace global productList with backend products
+            productList.length = 0; // Clear array
+            productList.push(...data);
+            return true;
+        }
+    } catch (err) {
+        console.warn('⚠️ Could not load from backend, using fallback products:', err);
+    }
+    return false;
 }
 
 function renderProducts() {
@@ -447,10 +468,13 @@ async function handleAuthFormSubmit(formId, endpoint) {
     console.log('Auth system disabled (frontend-only mode)');
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     console.log('📍 DOMContentLoaded fired');
     console.log('📍 productList length:', productList.length);
     console.log('📍 product-list element:', document.getElementById('product-list'));
+    
+    // Try to load products from backend first
+    await loadProductsFromBackend();
     
     renderProducts();
     renderCart();
