@@ -3,15 +3,8 @@
 const PEXELS_API_KEY = "zUF72zjQkflYRc4zMfEsUEQqyGPTpVRtSM6wjhmqsl4rxsfPcdJHf2hrv";
 
 const PHP_RATE = 58.50;
-// Use Render deployment URL or localhost for development
-let BACKEND_URL;
-if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    BACKEND_URL = 'http://localhost:8000';
-} else {
-    // For Render: use same origin as frontend
-    BACKEND_URL = `${window.location.protocol}//${window.location.host}`;
-}
-console.log('🌐 BACKEND_URL:', BACKEND_URL);
+// BACKEND_URL is already defined in auth.js, just use it
+console.log('🌐 BACKEND_URL from auth.js:', BACKEND_URL);
 
 const productListEl = document.getElementById('product-list');
 const cartListEl = document.getElementById('cart-list');
